@@ -30,7 +30,7 @@ export const resolvers = {
     Number: {
         add: (parent) => {return {precRes:parent, sigle:"+"}},
         minus: (parent) => {return {precRes:parent, sigle:"-"}},
-        time: (parent) => {return {precRes:parent, sigle:"*"}},
+        multiply: (parent) => {return {precRes:parent, sigle:"*"}},
         divide: (parent) => {return {precRes:parent, sigle:"/"}},
         result: (parent) => {return parent}
     },

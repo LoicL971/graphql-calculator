@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server';
 // const { gql } = require('apollo-server');
 
-const MAX_NUMBER = 20
+const MAX_NUMBER = 10000
 
 function numberToWords(number) {
   const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
@@ -13,7 +13,7 @@ function numberToWords(number) {
     return ones[number];
   }
   if (number < 100) {
-    return tens[Math.floor(number / 10)] + (number % 10 !== 0 ? '_' + ones[number % 10] : '');
+    return tens[Math.floor(number / 10)] + (number % 10 !== 0 ? ' ' + ones[number % 10] : '');
   }
   if (number < 1000) {
     return ones[Math.floor(number / 100)] + ' hundred' + (number % 100 !== 0 ? ' and ' + numberToWords(number % 100) : '');
@@ -30,7 +30,14 @@ function numberToWords(number) {
 export let wordToNumber = {};
 let numbers = '';
 for (let i = 0; i < MAX_NUMBER; i++) {
-  let word = numberToWords(i).replace(' ', '_');
+  let word = numberToWords(i).split(' ').map((element, index) => {
+    if (index === 0) {
+      return element;
+    }
+    else {
+      return element.charAt(0).toUpperCase() + element.slice(1);
+    }
+  }).join('');
   wordToNumber[word] = i;
   numbers = numbers + word + ': Number \n';
 }
@@ -42,7 +49,7 @@ export const typeDefs = `
   type Number {
     add: Symbol
     minus: Symbol
-    time: Symbol
+    multiply: Symbol
     divide: Symbol
     result: Int
   }
