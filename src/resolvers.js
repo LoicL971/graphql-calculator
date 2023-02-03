@@ -10,7 +10,7 @@ function simpleOperation(precRes, sigle, nb) {
     else if (sigle == '*') {
         return precRes * nb
     }
-    else if (sigle == '/') {
+    else {
         return precRes / nb
     }
 
